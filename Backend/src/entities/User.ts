@@ -6,7 +6,7 @@ import { Authentication } from './Authentication';
 export class User {
 
 	@PrimaryGeneratedColumn()
-	private id!: string;
+	public id!: number;
 
 	@Column('varchar', { length: 64 })
 	public email!: string;

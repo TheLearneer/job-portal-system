@@ -1,15 +1,15 @@
 import * as jwt from 'jsonwebtoken';
 import { Request } from 'koa';
 
-interface User {
-	id: string,
+export interface AuthUser {
+	id: number,
 	access: number
 };
 
-export const decodeUser = (request: Request): User | false => {
+export const decodeUserInfo = (request: Request): AuthUser | false => {
 	const token: string = request.headers['authorization'].split('Bearer ')[1];
 	try {
-		const decoded: User = jwt.verify(token, <string>process.env.SECRET_KEY) as User;
+		const decoded: AuthUser = <AuthUser>jwt.verify(token, <string>process.env.SECRET_KEY);
 		return {
 			id: decoded.id,
 			access: decoded.access
