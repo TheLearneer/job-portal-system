@@ -3,5 +3,5 @@ module.exports = {
 	url: process.env.DATABASE_URL,
 	synchronize: true,
 	logging: false,
-	entities: ['src/entities/**/*.{ts,js}']
+	entities: ['dist/src/entities/**/*.js']
 }

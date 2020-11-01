@@ -10,7 +10,7 @@ import { createConnection } from 'typeorm';
 
 import apiRouter from './utils/router';
 
-const SECRETKEY: string = <string>process.env.SECRET_KEY;
+const SECRETKEY: string = <string>process.env.JWT_SECRET;
 const PORT: number | string = process.env.PORT || 3030;
 
 createConnection()

@@ -6,7 +6,7 @@ import { Authentication } from '../entities/Authentication';
 
 const router = new Router({ prefix: '/auth' });
 
-router.get('/signup', async (ctx) => {
+router.post('/signup', async (ctx) => {
 	const auth = new Authentication();
 	auth.email = 'contact@santoshb.com.np';
 	auth.password = 'password';
