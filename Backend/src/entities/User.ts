@@ -5,7 +5,7 @@ import { Authentication } from './Authentication';
 @Entity()
 export class User {
 
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn('increment')
 	public id!: number;
 
 	@Column('varchar', { length: 64 })
