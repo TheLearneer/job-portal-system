@@ -14,6 +14,9 @@ export class User {
 	@Column('varchar', { length: 64 })
 	public name!: string;
 
+	@Column('boolean')
+	public verified = false;
+
 	@OneToOne(() => Authentication, auth => auth.user, {
 		cascade: true
 	})
