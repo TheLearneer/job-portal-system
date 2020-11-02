@@ -60,4 +60,20 @@ router.get('/:id', async (ctx) => {
 	ctx.body = job;
 });
 
+router.patch('/:id', async (ctx) => {
+	const { id } = ctx.params.id;
+	const { info } = ctx.params;
+
+	const updatedObj: { [property: string]: any } = {};
+	Object.keys(info).forEach((key) => {
+		updatedObj[key] = info[key];
+	})
+
+	const JobRepository = getManager().getRepository(Job);
+	await JobRepository.update({ id }, updatedObj);
+
+	ctx.status = 200;
+	ctx.body = { success: true };
+})
+
 export default router;
