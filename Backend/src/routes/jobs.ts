@@ -17,17 +17,6 @@ router.get('/', async (ctx) => {
 	ctx.body = { jobs: jobList };
 });
 
-router.get('/:id', async (ctx) => {
-	const { id } = ctx.params.id;
-
-	const JobRepository = getManager().getRepository(Job);
-	const job = await JobRepository.findOne({ where: { id }, relations: ['company'] });
-	if (!job) return ctx.throw(404, 'Invalid job ID');
-
-	ctx.status = 200;
-	ctx.body = job;
-});
-
 router.post('/', async (ctx) => {
 	const { info } = ctx.params;
 	if (!info) return ctx.throw(400, 'Invalid Request');
@@ -53,8 +42,22 @@ router.post('/', async (ctx) => {
 
 	job.company = company;
 
+	const JobRepository = getManager().getRepository(Job);
+	await JobRepository.save(job);
+
 	ctx.status = 200;
 	ctx.body = { success: true };
+});
+
+router.get('/:id', async (ctx) => {
+	const { id } = ctx.params.id;
+
+	const JobRepository = getManager().getRepository(Job);
+	const job = await JobRepository.findOne({ where: { id }, relations: ['company'] });
+	if (!job) return ctx.throw(404, 'Invalid job ID');
+
+	ctx.status = 200;
+	ctx.body = job;
 });
 
 export default router;
