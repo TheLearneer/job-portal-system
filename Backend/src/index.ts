@@ -9,6 +9,7 @@ import jwt from 'koa-jwt';
 import { createConnection } from 'typeorm';
 
 import apiRouter from './utils/router';
+import { protectRoutesJWT } from './utils/helper';
 
 const SECRETKEY: string = <string>process.env.JWT_SECRET;
 const PORT: number | string = process.env.PORT || 3030;
@@ -23,13 +24,7 @@ createConnection()
 			.use(
 				jwt({ secret: SECRETKEY })
 					.unless({
-						path: [
-							'/',
-							'/auth/signup',
-							'/auth/login',
-							'/jobs',
-							/^\/jobs\/(.)*/
-						]
+						custom: protectRoutesJWT
 					})
 			)
 			.use(apiRouter.routes())
