@@ -21,7 +21,7 @@ router.get('/', async (ctx) => {
 
 router.post('/', async (ctx) => {
 	const decodedUser = <AuthUser>decodeUserInfo(ctx.request);
-	if (![0, 2].includes(decodedUser.id)) return ctx.throw(403, 'Not permitted!');
+	if (![0, 2].includes(decodedUser.access)) return ctx.throw(403, 'Not permitted!');
 
 	const { info } = ctx.params;
 	if (!info) return ctx.throw(400, 'Invalid Request');
@@ -67,7 +67,7 @@ router.get('/:id', async (ctx) => {
 
 router.patch('/:id', async (ctx) => {
 	const decodedUser = <AuthUser>decodeUserInfo(ctx.request);
-	if (![0, 2].includes(decodedUser.id)) return ctx.throw(403, 'Not permitted!');
+	if (![0, 2].includes(decodedUser.access)) return ctx.throw(403, 'Not permitted!');
 
 	const { id } = ctx.params.id;
 	const { info } = ctx.params;
